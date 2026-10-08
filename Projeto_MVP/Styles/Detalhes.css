@@ -1,0 +1,421 @@
+/* Detalhes Page Styles */
+
+.hero_detalhes {
+    height: 60vh;
+    background: #ccc;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+/* marca D'agua Fnsso F4jiga */
+/* Backgrounds específicos para cada card */
+.hero_detalhes.pedra-sino {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Marco_no_cume_da_Pedra_do_Sino_-_panoramio.jpg/960px-Marco_no_cume_da_Pedra_do_Sino_-_panoramio.jpg') center/cover;
+}
+
+.hero_detalhes.cartao-postal {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://turismo.teresopolis.rj.gov.br/wp-content/uploads/2022/10/Cartao-Postal-Foto-Gutto-Rodrigues.jpeg') center/cover;
+}
+
+.hero_detalhes.trilha-primavera {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://www.portalmultiplix.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcHdJIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f15245b850554667135af2a3511399e4fa51e79b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lKTVRBeU5BWTZCa1ZVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--225ee2b8fdfbf7a081fbd41b5290b3252f18a8c0/Teres%C3%B3polis%20cinco%20trilhas%20para%20fazer%20no%20Parque%20Nacional%20da%20Serra%20dos%20%C3%93rg%C3%A3os%202.png') center/cover;
+}
+
+.hero_detalhes.veu-noiva {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://turismodenatureza.com.br/wp-content/webp-express/webp-images/uploads/2023/05/cachoeira-veu-da-noiva-petropolis.jpg.webp') center/cover;
+}
+
+.hero_detalhes.dois-irmaos {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://www.viagenspossiveis.com.br/wp-content/uploads/2017/06/PARNASO-Poco-Dois-Irmaos-Teresopoliss-8.jpg') center/cover;
+}
+
+.hero_detalhes.poco-castelo {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://i0.wp.com/www.viajantemovel.com.br/wp-content/uploads/2016/06/img_9657.jpg?ssl=1') center/cover;
+}
+
+.hero_content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero_content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.breadcrumb {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.breadcrumb a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Info Section */
+.detalhes_info {
+    padding: 4rem 0;
+    background: #f8f9fa;
+}
+
+.info_grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.info_principal h2 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.info_principal h3 {
+    color: #34495e;
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem 0;
+}
+
+.info_principal p {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.caracteristicas_lista {
+    list-style: none;
+    padding: 0;
+}
+
+.caracteristicas_lista li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1.1rem;
+}
+
+.caracteristicas_lista strong {
+    color: #2c3e50;
+    display: inline-block;
+    width: 150px;
+}
+
+/* Atrações Grid */
+.atracoes_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.atracao_item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.atracao_item h4 {
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.atracao_item p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Info Lateral */
+.card_info {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.card_info h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.info_item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info_item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.info_item .icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    margin-top: 0.2rem;
+}
+
+.info_item strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.info_item p {
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.equipamentos_lista {
+    list-style: none;
+    padding: 0;
+}
+
+.equipamentos_lista li {
+    padding: 0.5rem 0;
+    color: #555;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.equipamentos_lista li:before {
+    content: "✓";
+    color: #4CAF50;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Galeria */
+.galeria_section {
+    padding: 4rem 0;
+    background: white;
+}
+
+.galeria_section h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.galeria_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.galeria_item {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.galeria_item:hover {
+    transform: translateY(-5px);
+}
+
+.galeria_item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Dicas Section */
+.dicas_section {
+    padding: 4rem 0;
+    background: #f8f9fa;
+}
+
+.dicas_section h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.dicas_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.dica_card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.dica_card:hover {
+    transform: translateY(-5px);
+}
+
+.dica_card h3 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.dica_card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CTA Section */
+.cta_section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    text-align: center;
+    color: white;
+}
+
+.cta_content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta_content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta_button {
+    background: white;
+    color: #4CAF50;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta_button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.footer p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero_content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero_content p {
+        font-size: 1.1rem;
+    }
+    
+    .info_grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .info_principal h2 {
+        font-size: 2rem;
+    }
+    
+    .info_principal h3 {
+        font-size: 1.5rem;
+    }
+    
+    .caracteristicas_lista strong {
+        width: 120px;
+        font-size: 0.95rem;
+    }
+    
+    .atracoes_grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .galeria_grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dicas_grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .galeria_section h2,
+    .dicas_section h2,
+    .cta_content h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero_detalhes {
+        height: 50vh;
+    }
+    
+    .hero_content h1 {
+        font-size: 2rem;
+    }
+    
+    .detalhes_info,
+    .galeria_section,
+    .dicas_section,
+    .cta_section {
+        padding: 2rem 0;
+    }
+    
+    .card_info {
+        padding: 1.5rem;
+    }
+    
+    .info_item .icon {
+        font-size: 1.2rem;
+    }
+    
+    .galeria_item img {
+        height: 200px;
+    }
+}

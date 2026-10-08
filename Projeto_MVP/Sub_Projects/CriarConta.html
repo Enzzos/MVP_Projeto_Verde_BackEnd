@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Circuito Terê Verde</title>
+    <link rel="stylesheet" href="../Styles/Index.css">
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="main_header">
+        <nav class="navbar">
+            <div class="nav_logo">
+                <img class="logo_Dedo_Deus" src="https://upload.wikimedia.org/wikipedia/pt/a/ad/Unifeso_logomarca.png" alt="dedo_de_deus_logo.png">
+            </div>
+            <div class="nav_toggle" id="nav_toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            
+            <div class="nav_content" id="nav_content">
+                <ul class="nav_menu">
+                    <li><a href="../Index.html">Início</a></li>
+                    <li><a href="Agenda.html">Agenda</a></li>
+                    <li><a href="Sobre.html">Sobre</a></li>
+                    <li><a href="Contato.html">Contato</a></li>
+                    <li><a href="Admin.html" id="admin-link" style="color: #ff6b35; display: none;">Painel Admin</a></li>
+                </ul>
+                <div class="nav_login">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding: 2rem 0; min-height: 80vh; background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);">
+        <div class="container">
+            <div style="max-width: 500px; margin: 0 auto; background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h1 style="text-align: center; color: #2d5016; margin-bottom: 2rem; font-size: 2rem;">Criar Conta</h1>
+                
+                <form class="contact-form" id="create-account-form">
+                    <div class="form-group">
+                        <label>Nome Completo:</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Login de Usuário:</label>
+                        <input type="text" id="login" required minlength="3" placeholder="Escolha um nome de usuário">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Telefone:</label>
+                        <input type="tel" id="telefone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" id="senha" required minlength="6">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Confirmar Senha:</label>
+                        <input type="password" id="confirmar-senha" required minlength="6">
+                    </div>
+                    
+                    <button type="submit" class="create_button" style="width: 100%; margin-top: 1rem; padding: 14px 20px; font-size: 1.1rem;">Criar Conta</button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p style="color: #666;">Já tem uma conta? <a href="../Index.html" style="color: #38a169; text-decoration: none; font-weight: 600;">Faça login</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; Circuito Terê Verde Grupo 11 Made in 2025</p>
+        </div>
+    </footer>
+
+    <script src="../js/Auth.js"></script>
+    <script src="../js/Index.JS"></script>
+    <script>
+        document.getElementById('create-account-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const login = document.getElementById('login').value;
+            const telefone = document.getElementById('telefone').value;
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+            
+            if (senha !== confirmarSenha) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+            
+            if (createUser(nome, email, login, telefone, senha)) {
+                alert('Conta criada com sucesso! Você pode fazer login agora.');
+                window.location.href = '../Index.html';
+            } else {
+                alert('Este email ou login já está cadastrado!');
+            }
+        });
+        
+        toggleAdminLink();
+        
+        // Menu hambúrguer
+        const navToggle = document.getElementById('nav_toggle');
+        const navContent = document.getElementById('nav_content');
+        
+        navToggle.addEventListener('click', function() {
+            navContent.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

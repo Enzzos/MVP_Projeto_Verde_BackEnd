@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Circuito Terê Verde</title>
+    <link rel="stylesheet" href="../Styles/Agenda.css">
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="agenda-header">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/pt/a/ad/Unifeso_logomarca.png" alt="Logo">
+            </div>
+            <div class="nav-menu">
+                <a href="../Index.html">← Voltar ao Início</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="agenda-main">
+        <section class="agenda-hero">
+            <h1>Agende sua Aventura</h1>
+            <p>Escolha a data e trilha perfeita para sua experiência em Teresópolis</p>
+        </section>
+
+        <section class="agenda-container">
+            <div class="calendar-section">
+                <h2>📅 Selecione a Data</h2>
+                <div class="month-navigation">
+                    <button class="nav-btn" id="prev-month">‹</button>
+                    <select class="month-select" id="month-select">
+                        <option value="0">Janeiro</option>
+                        <option value="1">Fevereiro</option>
+                        <option value="2">Março</option>
+                        <option value="3">Abril</option>
+                        <option value="4">Maio</option>
+                        <option value="5">Junho</option>
+                        <option value="6">Julho</option>
+                        <option value="7">Agosto</option>
+                        <option value="8">Setembro</option>
+                        <option value="9">Outubro</option>
+                        <option value="10">Novembro</option>
+                        <option value="11">Dezembro</option>
+                    </select>
+                    <select class="year-select" id="year-select"></select>
+                    <button class="nav-btn" id="next-month">›</button>
+                </div>
+                <div class="calendar" id="calendar"></div>
+            </div>
+
+            <div class="trilhas-section" id="trilhas-section" style="display: none;">
+                <h2>🥾 Trilhas Disponíveis</h2>
+                <div class="trilhas-grid" id="trilhas-grid"></div>
+            </div>
+            <!-- código Ezzno dafiga-->
+            <div class="booking-section" id="booking-section" style="display: none;">
+                <h2>📝 Dados da Reserva</h2>
+                <form class="booking-form" id="booking-form">
+                    <div class="form-group">
+                        <label>Nome Completo:</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone:</label>
+                        <input type="tel" id="telefone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Pessoas:</label>
+                        <select id="pessoas" required>
+                            <option value="">Selecione</option>
+                            <option value="1">1 pessoa</option>
+                            <option value="2">2 pessoas</option>
+                            <option value="3">3 pessoas</option>
+                            <option value="4">4 pessoas</option>
+                            <option value="5+">5+ pessoas</option>
+                        </select>
+                    </div>
+                    <div class="booking-summary" id="booking-summary"></div>
+                    <button type="submit" class="confirm-btn">Confirmar Agendamento</button>
+                </form>
+            </div>
+        </section>
+
+        <div class="success-modal" id="success-modal" style="display: none;">
+            <div class="modal-content">
+                <h3>✅ Agendamento Confirmado!</h3>
+                <p>Sua reserva foi realizada com sucesso. Você receberá um email de confirmação em breve.</p>
+                <button onclick="closeModal()" class="close-btn">Fechar</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/Auth.js"></script>
+    <script src="../js/Agenda.js"></script>
+    <script src="../js/Index.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Trilha - Admin</title>
+    <link rel="stylesheet" href="../Styles/Index.css">
+    <link rel="stylesheet" href="../Styles/Admin.css">
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="main_header">
+        <nav class="navbar">
+            <div class="nav_logo">
+                <img class="logo_Dedo_Deus" src="https://upload.wikimedia.org/wikipedia/pt/a/ad/Unifeso_logomarca.png" alt="dedo_de_deus_logo.png">
+            </div>
+            <div class="nav_content">
+                <ul class="nav_menu">
+                    <li><a href="../Index.html">Início</a></li>
+                    <li><a href="Agenda.html">Agenda</a></li>
+                    <li><a href="Sobre.html">Sobre</a></li>
+                    <li><a href="Contato.html">Contato</a></li>
+                    <li><a href="Admin.html" style="color: #ff6b35;">Painel Admin</a></li>
+                </ul>
+                <div class="nav_login">
+                    <button onclick="logout()" class="login_button">Sair</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding: 2rem; min-height: 80vh;">
+        <div class="container">
+            <div class="trilha-header">
+                <button onclick="window.location.href='Admin.html'" class="back-btn">← Voltar</button>
+                <h1>Cadastrar Nova Trilha</h1>
+            </div>
+
+            <form class="trilha-form" onsubmit="cadastrarTrilha(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">Nome da Trilha *</label>
+                        <input type="text" id="nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dificuldade">Dificuldade *</label>
+                        <select id="dificuldade" required>
+                            <option value="">Selecione</option>
+                            <option value="Fácil">Fácil</option>
+                            <option value="Moderada">Moderada</option>
+                            <option value="Difícil">Difícil</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duracao">Duração (horas) *</label>
+                        <input type="number" id="duracao" min="1" max="12" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preco">Preço (R$) *</label>
+                        <input type="number" id="preco" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição *</label>
+                    <textarea id="descricao" rows="4" required placeholder="Descreva a trilha, pontos de interesse, o que esperar..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagem">URL da Imagem Principal</label>
+                    <input type="url" id="imagem" placeholder="https://exemplo.com/imagem.jpg">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="window.location.href='Admin.html'" class="btn-cancel">Cancelar</button>
+                    <button type="submit" class="btn-save">Cadastrar Trilha</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="../js/Auth.js"></script>
+    <script>
+        // Aguardar carregamento do Auth.js
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof isAdminLoggedIn === 'function' && !isAdminLoggedIn()) {
+                window.location.href = '../Index.html';
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = '../Index.html';
+        }
+
+        function cadastrarTrilha(event) {
+            event.preventDefault();
+            
+            const trilha = {
+                id: Date.now(),
+                nome: document.getElementById('nome').value,
+                dificuldade: document.getElementById('dificuldade').value,
+                duracao: document.getElementById('duracao').value,
+                preco: parseFloat(document.getElementById('preco').value),
+                descricao: document.getElementById('descricao').value,
+                imagem: document.getElementById('imagem').value || '../Imagens/dedo_de_deus_logo.png',
+                dataCriacao: new Date().toLocaleDateString('pt-BR')
+            };
+
+            const trilhas = JSON.parse(localStorage.getItem('trilhas') || '[]');
+            trilhas.push(trilha);
+            localStorage.setItem('trilhas', JSON.stringify(trilhas));
+
+            alert('Trilha cadastrada com sucesso!');
+            window.location.href = 'Admin.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background-color: #f7fafc;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.main_header {
+    background: linear-gradient(135deg, #2d5016 0%, #4a7c59 100%);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.nav_logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 102;
+}
+
+.logo_Dedo_Deus {
+    height: 75px;
+}
+
+.nav_toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 102;
+}
+
+.nav_toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.nav_toggle.active .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.nav_toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav_toggle.active .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.nav_content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav_menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+}
+
+.nav_menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 30px;
+    padding: 12px 20px;
+    white-space: nowrap;
+}
+
+.nav_menu a:hover {
+    color: #a7f3d0;
+    background-color: rgba(45, 80, 22, 0.8);
+}
+
+.nav_menu a.active {
+    color: #a7f3d0;
+    background-color: rgba(167, 243, 208, 0.15);
+    box-shadow: 0 2px 8px rgba(167, 243, 208, 0.3);
+    transform: translateY(-1px);
+}
+
+#admin-link {
+    background: rgba(255, 107, 53, 0.2);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+#admin-link:hover {
+    background: rgba(255, 107, 53, 0.3);
+    color: #fff;
+}
+
+.nav_login {
+    display: flex;
+    align-items: center;
+    margin-left: 80px;
+}
+
+.login_form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.login_input {
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 0.9rem;
+    width: 100px;
+    transition: all 0.3s ease;
+}
+
+.login_input:focus {
+    outline: none;
+    border-color: #a7f3d0;
+    background: rgba(255,255,255,0.2);
+}
+
+.login_input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+.login_button {
+    padding: 8px 16px;
+    background: #38a169;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.login_button:hover {
+    background: #2f855a;
+    transform: translateY(-1px);
+}
+
+.create_account_button {
+    padding: 8px 16px;
+    background: #ff6b35;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-left: 8px;
+}
+
+.create_account_button:hover {
+    background: #e55a2b;
+    transform: translateY(-1px);
+}
+
+/* Admin Panel Styles */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.admin-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+}
+
+.admin-card h3 {
+    color: #2c5530;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.admin-card p {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* sessão Background */
+.hero {
+    background: linear-gradient(rgba(45, 80, 22, 0.7), rgba(74, 124, 89, 0.7)),
+                url('https://upload.wikimedia.org/wikipedia/commons/b/ba/Dedo_de_Deus_-_Parque_Nacional_da_Serra_dos_%C3%93rg%C3%A3os_-_Teres%C3%B3polis_-_Rio_de_Janeiro_-_Brasil_02.jpg') center top/cover;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.exp_button {
+    background: #38a169;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.exp_button:hover {
+    background: #2f855a;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(56, 161, 105, 0.3);
+}
+
+/* Sessão das trilhas */
+.grid_zone {
+    padding: 80px 0;
+    background: white;
+}
+
+.titulo_grid_zone {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #2d5016;
+    font-weight: 700;
+}
+
+.trilhas_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+/* marca D'agua Fnsso F4 */
+.trilhas_card{
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trilhas_card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.trilhas_image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.trilhas_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.trilhas_card:hover .trilhas_image img {
+    transform: scale(1.05);
+}
+
+.trilhas_info {
+    padding: 1.5rem;
+}
+
+.trilhas_info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #2d5016;
+    font-weight: 700;
+}
+
+.trilhas_location {
+    color: #4a7c59;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.trilhas_description {
+    color: #4a5568;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.trilhas_features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature {
+    background: #f0fff4;
+    color: #2f855a;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid #c6f6d5;
+}
+
+.trilhas_button {
+    background: #38a169;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.trilhas_button:hover {
+    background: #2f855a;
+    transform: translateY(-1px);
+}
+
+/* Sessão das cachoeiras */
+.grid_zone_alt {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+    position: relative;
+}
+
+.grid_zone_alt::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(125, 211, 252, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(125, 211, 252, 0.1) 0%, transparent 50%);
+    opacity: 0.6;
+}
+
+.titulo_grid_zone_alt {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #2d80df;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.grid_zone_alt .trilhas_card {
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(125, 211, 252, 0.3);
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+}
+
+.grid_zone_alt .trilhas_card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(125, 211, 252, 0.25);
+}
+
+.grid_zone_alt .feature {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+/* Info Section */
+.info-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.info-card {
+    text-align: center;
+    padding: 9px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.info-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #2d5016;
+    font-weight: 700;
+}
+
+.info-card p {
+    color: #4a5568;
+    line-height: 1.6;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Contact Form Styles */
+.contact-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: #2d5016;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #38a169;
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .login_button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+}
+
+/* About Page Styles */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a5568;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+}
+
+.about-text strong {
+    color: #2d5016;
+    font-weight: 700;
+}
+
+/* Team and Values Cards Enhancement */
+.grid_zone_alt .trilhas_info h3,
+.info-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.info-icon {
+    display: block;
+    margin: 0 auto 1rem;
+    font-size: 3rem;
+    line-height: 1;
+}
+
+/* Enhanced spacing for about page */
+.about-content .trilhas_container {
+    margin-top: 2rem;
+}
+
+.about-content .trilhas_card .trilhas_info {
+    text-align: left;
+}
+
+.about-content .trilhas_card h3 {
+    color: #2d5016;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Footer */
+.main-footer {
+    background: #2d5016;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.main-footer p {
+    margin-bottom: 0.5rem;
+}
+
+.main-footer p:last-child {
+    margin-bottom: 0;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .nav_menu {
+        gap: 1.5rem;
+    }
+    
+    .nav_menu a {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .login_input {
+        width: 90px;
+        font-size: 0.85rem;
+    }
+    
+    .about-text {
+        font-size: 1rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 15px;
+    }
+    
+    .nav_toggle {
+        display: flex;
+    }
+    
+    .nav_content {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(135deg, #2d5016 0%, #4a7c59 100%);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        transition: right 0.3s ease;
+        z-index: 101;
+    }
+    
+    .nav_content.active {
+        right: 0;
+    }
+
+    #select {
+        background-color: #0369a1;
+    }    
+    
+    .nav_menu {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .nav_menu a {
+        font-size: 1.2rem;
+        padding: 15px 30px;
+    }
+    
+    .nav_login {
+        position: static;
+    }
+    
+    .login_form {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .login_input {
+        width: 200px;
+        padding: 12px 16px;
+        font-size: 1rem;
+    }
+    
+    .login_button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        width: 200px;
+    }
+    
+    .create_account_button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        width: 200px;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .logo_Dedo_Deus {
+        height: 60px;
+    }
+    
+    .hero-content h1,
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .trilhas_container {
+        grid-template-columns: 1fr;
+    }
+    
+    .titulo_grid_zone,
+    .titulo_grid_zone_alt {
+        font-size: 2rem;
+    }
+    
+    .about-content {
+        text-align: left;
+    }
+    
+    .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0 10px;
+    }
+    
+    .logo_Dedo_Deus {
+        height: 50px;
+    }
+    
+    .hero-content h1,
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .exp_button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .trilhas_container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .about-text {
+        font-size: 1rem;
+        text-align: left;
+    }
+    
+    .titulo_grid_zone,
+    .titulo_grid_zone_alt {
+        font-size: 1.8rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}

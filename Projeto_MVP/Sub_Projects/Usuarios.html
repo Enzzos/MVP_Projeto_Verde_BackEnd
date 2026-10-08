@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Usuários - Circuito Terê Verde</title>
+    <link rel="stylesheet" href="../Styles/Index.css">
+    <link rel="stylesheet" href="../Styles/Admin.css">
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="main_header">
+        <nav class="navbar">
+            <div class="nav_logo">
+                <img class="logo_Dedo_Deus" src="https://upload.wikimedia.org/wikipedia/pt/a/ad/Unifeso_logomarca.png" alt="dedo_de_deus_logo.png">
+            </div>
+            <div class="nav_content">
+                <ul class="nav_menu">
+                    <li><a href="../Index.html">Início</a></li>
+                    <li><a href="Agenda.html">Agenda</a></li>
+                    <li><a href="Sobre.html">Sobre</a></li>
+                    <li><a href="Contato.html">Contato</a></li>
+                    <li><a href="Admin.html" style="color: #ff6b35;">Painel Admin</a></li>
+                </ul>
+                <div class="nav_login">
+                    <button onclick="logout()" class="login_button">Sair</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding: 2rem; min-height: 80vh;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h1 style="color: #2c5530; margin: 0;">👥 Gerenciar Usuários</h1>
+                <div>
+                    <button onclick="window.location.href='Admin.html'" style="background: #38a169; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; margin-right: 10px;">← Voltar</button>
+                    <button onclick="logout()" style="background: #e53e3e; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600;">Sair</button>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="color: #2c5530; margin: 0;">Lista de Usuários Cadastrados</h2>
+                    <div style="color: #666; font-size: 0.9rem;">
+                        Total: <span id="total-usuarios" style="font-weight: bold; color: #2c5530;">0</span> usuários
+                    </div>
+                </div>
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 10px; margin-bottom: 1rem; font-size: 0.9rem;">
+                    ⚠️ <strong>Aviso:</strong> As senhas são exibidas apenas para administradores. Mantenha essas informações seguras.
+                </div>
+                <div id="usuarios-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/Auth.js"></script>
+    <script>
+        // Verificar se usuário está logado como admin
+        if (!isAdminLoggedIn()) {
+            window.location.href = '../Index.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = '../Index.html';
+        }
+
+        function loadUsuarios() {
+            const list = document.getElementById('usuarios-list');
+            const totalElement = document.getElementById('total-usuarios');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            totalElement.textContent = users.length;
+            
+            if (users.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Nenhum usuário cadastrado.</p>';
+            } else {
+                list.innerHTML = users.map(user => `
+                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; background: #fafafa;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            <div><strong>Nome:</strong> ${user.nome}</div>
+                            <div><strong>Email:</strong> ${user.email}</div>
+                            <div><strong>Login:</strong> <span style="color: #2c5530; font-family: monospace; font-weight: bold;">${user.login}</span></div>
+                            <div><strong>Telefone:</strong> ${user.telefone}</div>
+                            <div><strong>Senha:</strong> <span style="color: #e53e3e; font-family: monospace;">${user.senha}</span></div>
+                            <div><strong>Data de Cadastro:</strong> ${new Date(user.createdAt).toLocaleDateString('pt-BR')}</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+                            <button onclick="excluirUsuario(${user.id})" style="background: #e53e3e; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">🗑️ Excluir</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function excluirUsuario(id) {
+            if (confirm('Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.')) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const usuariosAtualizados = users.filter(user => user.id !== id);
+                localStorage.setItem('users', JSON.stringify(usuariosAtualizados));
+                loadUsuarios(); // Recarrega a lista
+            }
+        }
+
+        // Carregar usuários ao inicializar a página
+        loadUsuarios();
+    </script>
+</body>
+</html>

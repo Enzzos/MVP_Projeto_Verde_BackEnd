@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Circuito Terê Verde</title>
+    <link rel="stylesheet" href="../Styles/Index.css">
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header class="main_header">
+        <nav class="navbar">
+            <div class="nav_logo">
+                <img class="logo_Dedo_Deus" src="https://upload.wikimedia.org/wikipedia/pt/a/ad/Unifeso_logomarca.png"
+                    alt="dedo_de_deus_logo.png">
+            </div>
+
+            <div class="nav_toggle" id="nav_toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <div class="nav_content" id="nav_content">
+                <ul class="nav_menu">
+                    <li><a href="../Index.html">Início</a></li>
+                    <li><a href="Agenda.html">Agenda</a></li>
+                    <li><a href="Sobre.html">Sobre</a></li>
+                    <li><a href="Contato.html" class="active">Contato</a></li>
+                    <li><a href="Admin.html" id="admin-link" style="color: #ff6b35; display: none;">Painel Admin</a></li>
+                </ul>
+                <div class="nav_login">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Entre em Contato</h1>
+                <p>Vamos planejar sua próxima aventura na Serra dos Órgãos</p>
+            </div>
+        </section>
+
+        <section class="grid_zone">
+            <div class="container">
+                <h2 class="titulo_grid_zone">Fale Conosco</h2>
+                <div class="trilhas_container">
+                    <div class="trilhas_card">
+                        <div class="trilhas_info">
+                            <form class="contact-form">
+                                <div class="form-group">
+                                    <label for="nome">Nome Completo</label>
+                                    <input type="text" id="nome" name="nome" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="tel" id="telefone" name="telefone">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="assunto">Assunto</label>
+                                    <select id="assunto" name="assunto" required>
+                                        <option value="">Selecione um assunto</option>
+                                        <option value="reserva">Reserva de Trilha</option>
+                                        <option value="informacoes">Informações Gerais</option>
+                                        <option value="sugestao">Sugestões</option>
+                                        <option value="reclamacao">Reclamações</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="mensagem">Mensagem</label>
+                                    <textarea id="mensagem" name="mensagem" rows="5" required placeholder="Conte-nos sobre sua aventura ideal..."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="login_button">Enviar Mensagem</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid_zone_alt">
+            <div class="container">
+                <h2 class="titulo_grid_zone_alt">Informações de Contato</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h3>Localização</h3>
+                        <p>Av. Alberto Tôrres, 111 - Alto <br>Teresópolis - RJ</br> 25964-004</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">📞</div>
+                        <h3>Telefone</h3>
+                        <p><strong>(21) 99300-5324</strong><br>
+                        WhatsApp disponível<br>
+                        Seg à Sex: 8h às 18h</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">✉️</div>
+                        <h3>E-mail</h3>
+                        <p><strong>Grupo11@circuitotereverde.com</strong><br>
+                        Resposta em até 24h<br>
+                        Suporte técnico disponível</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">🌐</div>
+                        <h3>Redes Sociais</h3>
+                        <p>@circuitoTereerdeGrupo11<br>
+                        Instagram | Facebook<br>
+                        Acompanhe nossas aventuras!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid_zone">
+            <div class="container">
+                <h2 class="titulo_grid_zone">Horários de Atendimento</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <div class="trilhas_container">
+                            <div class="trilhas_card">
+                                <div class="trilhas_info">
+                                    <h3>🕐 Segunda a Sexta</h3>
+                                    <p class="trilhas_description">Das 8h às 18h - Atendimento completo para reservas, informações e suporte técnico.</p>
+                                </div>
+                            </div>
+                        <!-- código Enzzo Fadiga-->
+                            <div class="trilhas_card">
+                                <div class="trilhas_info">
+                                    <h3>🕐 Sábados</h3>
+                                    <p class="trilhas_description">Das 8h às 14h - Atendimento para emergências e informações sobre trilhas do fim de semana.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="trilhas_card">
+                                <div class="trilhas_info">
+                                    <h3>📱 WhatsApp 24h</h3>
+                                    <p class="trilhas_description">Suporte de emergência disponível 24h para grupos em trilhas ativas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/Auth.js"></script>
+    <script src="../js/Index.JS"></script>
+</body>
+
+</html>

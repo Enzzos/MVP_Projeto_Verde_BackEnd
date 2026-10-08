@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Circuito Terê Verde</title>
+    <link rel="stylesheet" href="../Styles/Index.css">
+    <link rel="stylesheet" href="../Styles/Admin.css">
+    <link rel="shortcut icon" href="../Imagens/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="main_header">
+        <nav class="navbar">
+            <div class="nav_logo">
+                <img class="logo_Dedo_Deus" src="https://upload.wikimedia.org/wikipedia/pt/a/ad/Unifeso_logomarca.png" alt="dedo_de_deus_logo.png">
+            </div>
+            <div class="nav_content">
+                <ul class="nav_menu">
+                    <li><a href="../Index.html">Início</a></li>
+                    <li><a href="Agenda.html">Agenda</a></li>
+                    <li><a href="Sobre.html">Sobre</a></li>
+                    <li><a href="Contato.html">Contato</a></li>
+                    <li><a href="#" id="admin-link" style="color: #ff6b35;">Painel Admin</a></li>
+                </ul>
+                <div class="nav_login">
+                    <button onclick="logout()" class="login_button">Sair</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding: 2rem; min-height: 80vh;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h1 style="color: #2c5530; margin: 0;">Painel Administrativo</h1>
+                <button onclick="logout()" style="background: #e53e3e; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">Deslogar</button>
+            </div>
+            <!-- código 3nzz0 Fadiga-->
+            <div class="admin-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="admin-card" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2c5530; margin-bottom: 1rem;">📅 Agendamentos</h3>
+                    <p>Visualizar e gerenciar reservas de trilhas</p>
+                    <button class="trilhas_button" onclick="showAgendamentos()" style="margin-top: 1rem;">Ver Agendamentos</button>
+                </div>
+
+                <div class="admin-card" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2c5530; margin-bottom: 1rem;">👥 Usuários</h3>
+                    <p>Visualizar e gerenciar usuários cadastrados</p>
+                    <button class="trilhas_button" onclick="window.location.href='Usuarios.html'" style="margin-top: 1rem;">Ver Usuários</button>
+                </div>
+
+                <div class="admin-card" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2c5530; margin-bottom: 1rem;">🥾 Trilhas</h3>
+                    <p>Cadastrar e gerenciar trilhas disponíveis</p>
+                    <button class="trilhas_button" onclick="window.location.href='CadastroTrilha.html'" style="margin-top: 1rem;">Cadastrar Trilha</button>
+                </div>
+
+            </div>
+
+            <!-- Seção de Agendamentos -->
+            <div id="agendamentos-section" style="display: none; margin-top: 3rem;">
+                <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <h2 style="color: #2c5530; margin-bottom: 1.5rem;">📋 Agendamentos Recentes</h2>
+                    <div id="agendamentos-list"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/Auth.js"></script>
+    <script src="../js/Index.js"></script>
+    <script>
+        // Verificar se usuário está logado como admin
+        if (!isAdminLoggedIn()) {
+            window.location.href = '../Index.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = '../Index.html';
+        }
+
+        function showAgendamentos() {
+            const section = document.getElementById('agendamentos-section');
+            const list = document.getElementById('agendamentos-list');
+            
+            const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
+            
+            if (agendamentos.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #666;">Nenhum agendamento encontrado.</p>';
+            } else {
+                list.innerHTML = agendamentos.map(agendamento => `
+                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            <div><strong>Nome:</strong> ${agendamento.nome}</div>
+                            <div><strong>Email:</strong> ${agendamento.email}</div>
+                            <div><strong>Telefone:</strong> ${agendamento.telefone}</div>
+                            <div><strong>Trilha:</strong> ${agendamento.trilha}</div>
+                            <div><strong>Data:</strong> ${agendamento.data}</div>
+                            <div><strong>Horário:</strong> ${agendamento.horario}</div>
+                            <div><strong>Pessoas:</strong> ${agendamento.pessoas}</div>
+                            <div><strong>Status:</strong> <span style="color: #4caf50; font-weight: bold;">${agendamento.status}</span></div>
+                        </div>
+                        <button onclick="excluirAgendamento(${agendamento.id})" style="background: #e53e3e; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: 600;">🗑️ Excluir</button>
+                    </div>
+                `).join('');
+            }
+            
+            section.style.display = 'block';
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function excluirAgendamento(id) {
+            if (confirm('Tem certeza que deseja excluir este agendamento?')) {
+                const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
+                const agendamentosAtualizados = agendamentos.filter(agendamento => agendamento.id !== id);
+                localStorage.setItem('agendamentos', JSON.stringify(agendamentosAtualizados));
+                showAgendamentos(); // Recarrega a lista
+            }
+        }
+    </script>
+</body>
+</html>

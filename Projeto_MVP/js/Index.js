@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 /* marca D'agua Fnsso F4jiga */
 // Sistema de login
-document.addEventListener('click', function(e) {
+document.addEventListener('click', async function(e) {
     if (e.target && e.target.matches('.login_button')) {
         e.preventDefault();
         
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         
-        const result = login(username, password);
+        const result = await login(username, password);
         if (result.success) {
             if (result.type === 'admin') {
                 alert('Login de administrador realizado com sucesso!');

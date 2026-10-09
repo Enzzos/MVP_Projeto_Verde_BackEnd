@@ -46,9 +46,6 @@
                         Total: <span id="total-usuarios" style="font-weight: bold; color: #2c5530;">0</span> usuários
                     </div>
                 </div>
-                <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 10px; margin-bottom: 1rem; font-size: 0.9rem;">
-                    ⚠️ <strong>Aviso:</strong> As senhas são exibidas apenas para administradores. Mantenha essas informações seguras.
-                </div>
                 <div id="usuarios-list"></div>
             </div>
         </div>
@@ -62,48 +59,53 @@
         }
 
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
+            sessionStorage.clear();
             window.location.href = '../Index.html';
         }
 
-        function loadUsuarios() {
+        async function loadUsuarios() {
             const list = document.getElementById('usuarios-list');
             const totalElement = document.getElementById('total-usuarios');
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            
-            totalElement.textContent = users.length;
-            
-            if (users.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Nenhum usuário cadastrado.</p>';
-            } else {
-                list.innerHTML = users.map(user => `
-                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; background: #fafafa;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-                            <div><strong>Nome:</strong> ${user.nome}</div>
-                            <div><strong>Email:</strong> ${user.email}</div>
-                            <div><strong>Login:</strong> <span style="color: #2c5530; font-family: monospace; font-weight: bold;">${user.login}</span></div>
-                            <div><strong>Telefone:</strong> ${user.telefone}</div>
-                            <div><strong>Senha:</strong> <span style="color: #e53e3e; font-family: monospace;">${user.senha}</span></div>
-                            <div><strong>Data de Cadastro:</strong> ${new Date(user.createdAt).toLocaleDateString('pt-BR')}</div>
+
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/usuarios', {
+                    headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+                });
+                const users = await res.json();
+
+                totalElement.textContent = users.length;
+
+                if (!users.length) {
+                    list.innerHTML = '<p style="text-align:center;color:#666;padding:2rem;">Nenhum usuário cadastrado.</p>';
+                } else {
+                    list.innerHTML = users.map(user => `
+                        <div style="border:1px solid #e0e0e0;border-radius:8px;padding:1.5rem;margin-bottom:1rem;background:#fafafa;">
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem;">
+                                <div><strong>Nome:</strong> ${user.nome}</div>
+                                <div><strong>Email:</strong> ${user.email}</div>
+                                <div><strong>Login:</strong> <span style="color:#2c5530;font-family:monospace;font-weight:bold;">${user.login}</span></div>
+                                <div><strong>Telefone:</strong> ${user.telefone}</div>
+                                <div><strong>Data de Cadastro:</strong> ${new Date(user.created_at).toLocaleDateString('pt-BR')}</div>
+                            </div>
+                            <button onclick="excluirUsuario(${user.id})" style="background:#e53e3e;color:white;border:none;padding:8px 16px;border-radius:5px;cursor:pointer;font-weight:600;font-size:.9rem;">🗑️ Excluir</button>
                         </div>
-                        <div style="display: flex; gap: 10px; margin-top: 1rem;">
-                            <button onclick="excluirUsuario(${user.id})" style="background: #e53e3e; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">🗑️ Excluir</button>
-                        </div>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
+            } catch {
+                list.innerHTML = '<p style="color:red;">Erro ao carregar usuários.</p>';
             }
         }
 
-        function excluirUsuario(id) {
+        async function excluirUsuario(id) {
             if (confirm('Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.')) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const usuariosAtualizados = users.filter(user => user.id !== id);
-                localStorage.setItem('users', JSON.stringify(usuariosAtualizados));
-                loadUsuarios(); // Recarrega a lista
+                await fetch(`http://localhost:3000/api/auth/usuarios/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+                });
+                loadUsuarios();
             }
         }
 
-        // Carregar usuários ao inicializar a página
         loadUsuarios();
     </script>
 </body>

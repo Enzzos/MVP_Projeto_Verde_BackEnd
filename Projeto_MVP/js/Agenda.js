@@ -263,9 +263,8 @@ class AgendaSystem {
     }
 
     fillUserData() {
-        if (localStorage.getItem('userLoggedIn') === 'true') {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-            
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+        if (currentUser) {
             if (currentUser.nome) document.getElementById('nome').value = currentUser.nome;
             if (currentUser.email) document.getElementById('email').value = currentUser.email;
             if (currentUser.telefone) document.getElementById('telefone').value = currentUser.telefone;
@@ -280,35 +279,30 @@ class AgendaSystem {
         });
     }
 
-    submitBooking() {
+    async submitBooking() {
+        const dataISO = this.selectedDate.toISOString().split('T')[0];
         const formData = {
             nome: document.getElementById('nome').value,
             email: document.getElementById('email').value,
             telefone: document.getElementById('telefone').value,
             pessoas: document.getElementById('pessoas').value,
-            data: this.selectedDate.toLocaleDateString('pt-BR'),
+            data: dataISO,
             trilha: this.selectedTrilha.nome,
             horario: this.selectedHorario,
             preco: this.selectedTrilha.preco
         };
 
-        // Salvar no localStorage (simulação de banco de dados ja que me impediram de mexer com MongoDB)
-
-        //fiz mas não faço ideia de como eu fiz, eu sei explicar, eu soube fazer, mas não me peça para melhorar, caso seja teimoso 
-        // e queira tentar perder seu tempo mexendo nesse projeto de cache de banco de dados, por favor contribua para quantidade de 
-        // horas gastas aqui, desde já, agradeço
-        // Tempo perdido nessa função: 2 horas
-        const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
-        agendamentos.push({
-            ...formData,
-            id: Date.now(),
-            status: 'confirmado',
-            dataReserva: new Date().toISOString()
-        });
-        localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
-
-        // Mostrar modal de sucesso
-        this.showSuccessModal();
+        try {
+            const res = await fetch('http://localhost:3000/api/agendamentos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            if (!res.ok) throw new Error();
+            this.showSuccessModal();
+        } catch {
+            alert('Erro ao realizar agendamento. Tente novamente.');
+        }
     }
 
     showSuccessModal() {

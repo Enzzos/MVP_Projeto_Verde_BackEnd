@@ -76,46 +76,54 @@
         }
 
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
+            sessionStorage.clear();
             window.location.href = '../Index.html';
         }
 
-        function showAgendamentos() {
+        async function showAgendamentos() {
             const section = document.getElementById('agendamentos-section');
             const list = document.getElementById('agendamentos-list');
-            
-            const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
-            
-            if (agendamentos.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: #666;">Nenhum agendamento encontrado.</p>';
-            } else {
-                list.innerHTML = agendamentos.map(agendamento => `
-                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-                            <div><strong>Nome:</strong> ${agendamento.nome}</div>
-                            <div><strong>Email:</strong> ${agendamento.email}</div>
-                            <div><strong>Telefone:</strong> ${agendamento.telefone}</div>
-                            <div><strong>Trilha:</strong> ${agendamento.trilha}</div>
-                            <div><strong>Data:</strong> ${agendamento.data}</div>
-                            <div><strong>Horário:</strong> ${agendamento.horario}</div>
-                            <div><strong>Pessoas:</strong> ${agendamento.pessoas}</div>
-                            <div><strong>Status:</strong> <span style="color: #4caf50; font-weight: bold;">${agendamento.status}</span></div>
+
+            try {
+                const res = await fetch('http://localhost:3000/api/agendamentos', {
+                    headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+                });
+                const agendamentos = await res.json();
+
+                if (!agendamentos.length) {
+                    list.innerHTML = '<p style="text-align:center;color:#666;">Nenhum agendamento encontrado.</p>';
+                } else {
+                    list.innerHTML = agendamentos.map(a => `
+                        <div style="border:1px solid #e0e0e0;border-radius:8px;padding:1rem;margin-bottom:1rem;">
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem;">
+                                <div><strong>Nome:</strong> ${a.nome}</div>
+                                <div><strong>Email:</strong> ${a.email}</div>
+                                <div><strong>Telefone:</strong> ${a.telefone}</div>
+                                <div><strong>Trilha:</strong> ${a.trilha}</div>
+                                <div><strong>Data:</strong> ${new Date(a.data).toLocaleDateString('pt-BR')}</div>
+                                <div><strong>Horário:</strong> ${a.horario}</div>
+                                <div><strong>Pessoas:</strong> ${a.pessoas}</div>
+                                <div><strong>Status:</strong> <span style="color:#4caf50;font-weight:bold;">${a.status}</span></div>
+                            </div>
+                            <button onclick="excluirAgendamento(${a.id})" style="background:#e53e3e;color:white;border:none;padding:8px 16px;border-radius:5px;cursor:pointer;font-weight:600;">🗑️ Excluir</button>
                         </div>
-                        <button onclick="excluirAgendamento(${agendamento.id})" style="background: #e53e3e; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: 600;">🗑️ Excluir</button>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
+            } catch {
+                list.innerHTML = '<p style="color:red;">Erro ao carregar agendamentos.</p>';
             }
-            
+
             section.style.display = 'block';
             section.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function excluirAgendamento(id) {
+        async function excluirAgendamento(id) {
             if (confirm('Tem certeza que deseja excluir este agendamento?')) {
-                const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
-                const agendamentosAtualizados = agendamentos.filter(agendamento => agendamento.id !== id);
-                localStorage.setItem('agendamentos', JSON.stringify(agendamentosAtualizados));
-                showAgendamentos(); // Recarrega a lista
+                await fetch(`http://localhost:3000/api/agendamentos/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+                });
+                showAgendamentos();
             }
         }
     </script>

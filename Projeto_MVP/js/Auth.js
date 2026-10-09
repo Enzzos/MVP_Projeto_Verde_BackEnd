@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://mvp-projeto-verde-backend.onrender.com/api';
 
 function getToken() { return sessionStorage.getItem('token'); }
 function getTokenType() { return sessionStorage.getItem('tokenType'); }

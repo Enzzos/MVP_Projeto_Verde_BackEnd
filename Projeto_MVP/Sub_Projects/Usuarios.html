@@ -68,7 +68,7 @@
             const totalElement = document.getElementById('total-usuarios');
 
             try {
-                const res = await fetch('http://localhost:3000/api/auth/usuarios', {
+                const res = await fetch('https://mvp-projeto-verde-backend.onrender.com/api/auth/usuarios', {
                     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
                 });
                 const users = await res.json();
@@ -98,7 +98,7 @@
 
         async function excluirUsuario(id) {
             if (confirm('Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.')) {
-                await fetch(`http://localhost:3000/api/auth/usuarios/${id}`, {
+                await fetch(`https://mvp-projeto-verde-backend.onrender.com/api/auth/usuarios/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
                 });

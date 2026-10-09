@@ -293,7 +293,7 @@ class AgendaSystem {
         };
 
         try {
-            const res = await fetch('http://localhost:3000/api/agendamentos', {
+            const res = await fetch('https://mvp-projeto-verde-backend.onrender.com/api/agendamentos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

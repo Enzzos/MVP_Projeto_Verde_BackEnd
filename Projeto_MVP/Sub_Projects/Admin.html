@@ -85,7 +85,7 @@
             const list = document.getElementById('agendamentos-list');
 
             try {
-                const res = await fetch('http://localhost:3000/api/agendamentos', {
+                const res = await fetch('https://mvp-projeto-verde-backend.onrender.com/api/agendamentos', {
                     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
                 });
                 const agendamentos = await res.json();
@@ -119,7 +119,7 @@
 
         async function excluirAgendamento(id) {
             if (confirm('Tem certeza que deseja excluir este agendamento?')) {
-                await fetch(`http://localhost:3000/api/agendamentos/${id}`, {
+                await fetch(`https://mvp-projeto-verde-backend.onrender.com/api/agendamentos/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
                 });

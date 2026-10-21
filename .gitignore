@@ -3,3 +3,5 @@ teste/teste.txt
 .env.local
 .env
 node_modules/
+/docs/security-audit
+/Material_Apresentação

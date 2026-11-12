@@ -38,6 +38,22 @@ function logoutUser() {
     updateLoginInterface();
 }
 
+async function updatePassword(senhaAtual, novaSenha) {
+    const user = getCurrentUser();
+    if (!user) return { success: false, error: 'Não autenticado.' };
+    try {
+        const res = await fetch(`${API_URL}/auth/usuarios/${user.id}/senha`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+            body: JSON.stringify({ senhaAtual, novaSenha })
+        });
+        const data = await res.json();
+        return res.ok ? { success: true } : { success: false, error: data.error };
+    } catch {
+        return { success: false, error: 'Erro de conexão.' };
+    }
+}
+
 async function createUser(nome, email, login, telefone, senha) {
     try {
         const res = await fetch(`${API_URL}/auth/register`, {
@@ -62,6 +78,9 @@ function updateLoginInterface() {
     const navLogin = document.querySelector('.nav_login');
     if (!navLogin) return;
 
+    const currentPath = window.location.pathname;
+    const isSubProject = currentPath.includes('Sub_Projects');
+
     if (isAdminLoggedIn()) {
         navLogin.innerHTML = `
             <div style="display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,rgba(56,161,105,.15),rgba(167,243,208,.1));padding:8px 16px;border-radius:25px;border:1px solid rgba(167,243,208,.3);">
@@ -79,11 +98,10 @@ function updateLoginInterface() {
                     <div style="width:8px;height:8px;background:#ff6b35;border-radius:50%;box-shadow:0 0 6px #ff6b35;"></div>
                     <span style="color:#ff6b35;font-weight:700;font-size:.9rem;">${user?.nome || 'Usuário'}</span>
                 </div>
+                <button onclick="window.location.href='${isSubProject ? 'AlterarSenha.html' : 'Sub_Projects/AlterarSenha.html'}'" style="background:linear-gradient(135deg,#38a169,#2d5016);color:white;border:none;padding:6px 12px;border-radius:15px;font-size:.8rem;font-weight:600;cursor:pointer;">Alterar Senha</button>
                 <button onclick="logoutUser()" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;padding:6px 12px;border-radius:15px;font-size:.8rem;font-weight:600;cursor:pointer;">Sair</button>
             </div>`;
     } else {
-        const currentPath = window.location.pathname;
-        const isSubProject = currentPath.includes('Sub_Projects');
         const createAccountPath = isSubProject ? 'CriarConta.html' : 'Sub_Projects/CriarConta.html';
         navLogin.innerHTML = `
             <form class="login_form" id="login-form">

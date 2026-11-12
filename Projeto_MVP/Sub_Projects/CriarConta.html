@@ -88,7 +88,7 @@
     <script src="../js/Auth.js"></script>
     <script src="../js/Index.JS"></script>
     <script>
-        document.getElementById('create-account-form').addEventListener('submit', function(e) {
+        document.getElementById('create-account-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const nome = document.getElementById('nome').value;
@@ -103,7 +103,8 @@
                 return;
             }
             
-            if (createUser(nome, email, login, telefone, senha)) {
+            const ok = await createUser(nome, email, login, telefone, senha);
+            if (ok) {
                 alert('Conta criada com sucesso! Você pode fazer login agora.');
                 window.location.href = '../Index.html';
             } else {

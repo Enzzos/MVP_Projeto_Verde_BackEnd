@@ -76,6 +76,8 @@ A API ficará disponível em `http://localhost:3000`.
 | POST   | `/register` | Cadastro de usuário    |
 | POST   | `/login`    | Login e geração de JWT |
 
+| PUT    | `/usuarios/:id/senha` | Atualiza senha do usuário  |
+
 ### Agendamentos — `/api/agendamentos`
 
 | Método | Rota   | Descrição                   |

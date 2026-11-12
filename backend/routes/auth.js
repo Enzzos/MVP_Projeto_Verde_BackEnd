@@ -69,6 +69,33 @@ router.get('/usuarios', async (req, res) => {
     }
 });
 
+// PUT /api/auth/usuarios/:id/senha  (próprio usuário)
+router.put('/usuarios/:id/senha', async (req, res) => {
+    const auth = req.headers.authorization?.split(' ')[1];
+    try {
+        const decoded = jwt.verify(auth, process.env.JWT_SECRET);
+        if (decoded.type !== 'user' || decoded.id !== parseInt(req.params.id)) {
+            return res.status(403).json({ error: 'Acesso negado.' });
+        }
+
+        const { senhaAtual, novaSenha } = req.body;
+        if (!senhaAtual || !novaSenha) return res.status(400).json({ error: 'Campos obrigatórios faltando.' });
+
+        const result = await pool.query('SELECT senha FROM usuarios WHERE id=$1', [req.params.id]);
+        const user = result.rows[0];
+        if (!user) return res.status(404).json({ error: 'Usuário não encontrado.' });
+
+        const valid = await bcrypt.compare(senhaAtual, user.senha);
+        if (!valid) return res.status(401).json({ error: 'Senha atual incorreta.' });
+
+        const hash = await bcrypt.hash(novaSenha, 10);
+        await pool.query('UPDATE usuarios SET senha=$1 WHERE id=$2', [hash, req.params.id]);
+        res.json({ success: true });
+    } catch {
+        res.status(401).json({ error: 'Token inválido.' });
+    }
+});
+
 // DELETE /api/auth/usuarios/:id  (admin only)
 router.delete('/usuarios/:id', async (req, res) => {
     const auth = req.headers.authorization?.split(' ')[1];
